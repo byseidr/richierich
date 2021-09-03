@@ -1,4 +1,7 @@
-export const addChild = (parents: string[] | string, data: any): object[] => {
+export const addChild = (
+    parents: string[] | string,
+    data: any
+): { [key: string]: any } => {
     parents = toArr(parents);
     parents.reverse().forEach((parent: string) => {
         data = { [parent]: data };
@@ -8,7 +11,7 @@ export const addChild = (parents: string[] | string, data: any): object[] => {
 
 export const get = (
     path: string,
-    obj: object[],
+    obj: { [key: string]: any },
     defaultVal: any = undefined
 ): any => {
     const travel = (regexp: RegExp) =>
@@ -30,30 +33,33 @@ export const getArr = (el: any, defaultVal: any = []): any[] =>
 export const getFunc = (el: any, args: any[] = []): any =>
     isFunc(el) ? (isEmpty(args) ? el() : el(...args)) : el;
 
-export const getKey = (el: object[], key: any, defaultVal: any = null): any =>
-    hasKey(el, key) ? el[key] : defaultVal;
+export const getKey = (
+    el: { [key: string]: any },
+    key: string,
+    defaultVal: any = null
+): any => (hasKey(el, key) ? el[key] : defaultVal);
 
 export const getKeyArr = (
-    el: object[],
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     defaultVal: any = []
 ): any[] => (hasKeyArr(el, key) ? el[key] : defaultVal);
 
 export const getKeyBool = (
-    el: object[],
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     defaultVal: any = false
 ): boolean => (hasKeyBool(el, key) ? el[key] : defaultVal);
 
 export const getKeyFalse = (
-    el: object[],
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     defaultVal: any = false
 ): false => (hasKeyFalse(el, key) ? el[key] : defaultVal);
 
 export const getKeyFunc = (
-    el: any,
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     args: any[] = [],
     defaultVal: any = getKey(el, key)
 ): any =>
@@ -64,34 +70,34 @@ export const getKeyFunc = (
         : defaultVal;
 
 export const getKeyNum = (
-    el: object[],
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     defaultVal: any = 0
 ): number => (hasKeyNum(el, key) ? el[key] : defaultVal);
 
 export const getKeyObj = (
-    el: object[],
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     defaultVal: any = {}
-): object[] => (hasKeyObj(el, key) ? el[key] : defaultVal);
+): { [key: string]: any } => (hasKeyObj(el, key) ? el[key] : defaultVal);
 
 export const getKeyRegex = (
-    el: object[],
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     defaultVal: any = null
 ): RegExp => (hasKeyRegex(el, key) ? el[key] : defaultVal);
 
 export const getKeyStr = (
-    el: object[],
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     prefix: string = "",
     suffix: string = "",
     defaultVal: any = ""
 ): string => (hasKeyStr(el, key) ? `${prefix}${el[key]}${suffix}` : defaultVal);
 
 export const getKeyTrue = (
-    el: object[],
-    key: any,
+    el: { [key: string]: any },
+    key: string,
     defaultVal: any = true
 ): true => (hasKeyTrue(el, key) ? el[key] : defaultVal);
 
@@ -106,52 +112,55 @@ export const getSize = (el: any) => {
     return el;
 };
 
-export const has = (el: any[], key: any): boolean =>
+export const has = (el: any[], key: number): boolean =>
     isArr(el) && el.includes(key);
 
-export const hasKey = (el: object[], key: any): boolean =>
+export const hasKey = (el: { [key: string]: any }, key: string): boolean =>
     isEl(el) &&
     (isArr(el) || isObj(el)) &&
     Object.prototype.hasOwnProperty.call(el, key);
 
 // If el has a key => array pair
-export const hasKeyArr = (el: object[], key: any): boolean =>
+export const hasKeyArr = (el: { [key: string]: any }, key: string): boolean =>
     hasKey(el, key) && isArr(el[key]);
 
 // If el has a key => boolean pair
-export const hasKeyBool = (el: object[], key: any): boolean =>
+export const hasKeyBool = (el: { [key: string]: any }, key: string): boolean =>
     hasKey(el, key) && isBool(el[key]);
 
 // If el has a key => boolean (false) pair
-export const hasKeyFalse = (el: object[], key: any): boolean =>
+export const hasKeyFalse = (el: { [key: string]: any }, key: string): boolean =>
     hasKeyFalsy(el, key) && isBool(el[key]);
 
 // If el has a key => boolean (false) pair
-export const hasKeyFalsy = (el: object[], key: any): boolean =>
+export const hasKeyFalsy = (el: { [key: string]: any }, key: string): boolean =>
     hasKey(el, key) && !el[key];
 
 // If el has a key => function pair
-export const hasKeyFunc = (el: object[], key: any): boolean =>
+export const hasKeyFunc = (el: { [key: string]: any }, key: string): boolean =>
     hasKey(el, key) && isFunc(el[key]);
 
 // If el has a key => number pair
-export const hasKeyNum = (el: object[], key: any): boolean =>
+export const hasKeyNum = (el: { [key: string]: any }, key: string): boolean =>
     hasKey(el, key) && isNum(el[key]);
 
 // If el has a key => object pair
-export const hasKeyObj = (el: object[], key: any): boolean =>
+export const hasKeyObj = (el: { [key: string]: any }, key: string): boolean =>
     hasKey(el, key) && isObj(el[key]);
 
 // If el has a key => regexp pair
-export const hasKeyRegex = (el: object[], key: any): boolean =>
+export const hasKeyRegex = (el: { [key: string]: any }, key: string): boolean =>
     hasKey(el, key) && isRegex(el[key]);
 
 // If el has a key => string pair
-export const hasKeyStr = (el: object[], key: any): boolean =>
+export const hasKeyStr = (el: { [key: string]: any }, key: string): boolean =>
     hasKey(el, key) && isStr(el[key]);
 
 // If el has a set of specific key => value pairs
-export const hasKeysVal = (el: object[], pairs: any[][]): boolean => {
+export const hasKeysVal = (
+    el: { [key: string]: any },
+    pairs: any[][]
+): boolean => {
     let result: boolean[] = [];
     pairs.forEach((pair) => {
         result.push(hasKeyVal(el, pair[0], pair[1]));
@@ -160,18 +169,23 @@ export const hasKeysVal = (el: object[], pairs: any[][]): boolean => {
 };
 
 // If el has a key => boolean (true) pair
-export const hasKeyTrue = (el: object[], key: any): boolean =>
+export const hasKeyTrue = (el: { [key: string]: any }, key: string): boolean =>
     hasKeyTruthy(el, key) && isBool(el[key]);
 
 // If el has a key => boolean (true) pair
-export const hasKeyTruthy = (el: object[], key: any): boolean =>
-    hasKey(el, key) && !!el[key];
+export const hasKeyTruthy = (
+    el: { [key: string]: any },
+    key: string
+): boolean => hasKey(el, key) && !!el[key];
 
 // If el has a specific key => value pair
-export const hasKeyVal = (el: object[], key: any, val: any): boolean =>
-    hasKey(el, key) && el[key] == val;
+export const hasKeyVal = (
+    el: { [key: string]: any },
+    key: string,
+    val: any
+): boolean => hasKey(el, key) && el[key] == val;
 
-export const inObj = (obj: object[], key: any): boolean =>
+export const inObj = (obj: { [key: string]: any }, key: string): boolean =>
     Object.prototype.hasOwnProperty.call(obj, key);
 
 export const isArr = (el: any): boolean => Array.isArray(el);
@@ -234,12 +248,12 @@ export const isNum = (el: any): boolean => toType(el) == "number";
 export const isObj = (el: any): boolean => toType(el) == "object";
 
 export const isObjEq = (
-    obj1: object[],
-    obj2: object[],
+    obj1: { [key: string]: any },
+    obj2: { [key: string]: any },
     keys: string[] = ["name"]
 ): boolean => {
     let result = true;
-    keys.forEach((key: any) => {
+    keys.forEach((key: string) => {
         result =
             result &&
             hasKeyStr(obj1, key) &&
@@ -283,10 +297,10 @@ exports.mergeArrs = (
     return result;
 };
 
-export const omit = (obj: object[], omitKey: any) =>
+export const omit = (obj: { [key: string]: any }, omitKey: string) =>
     Object.keys(obj)
-        .filter((key: any) => key != omitKey)
-        .reduce((result, key: any) => ({ ...result, [key]: obj[key] }), {});
+        .filter((key: string) => key != omitKey)
+        .reduce((result, key: string) => ({ ...result, [key]: obj[key] }), {});
 
 export const sleep = (ms: number): Promise<number> =>
     new Promise((resolve) => setTimeout(resolve, ms));
