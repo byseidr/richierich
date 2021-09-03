@@ -1,0 +1,305 @@
+export const addChild = (parents: string[] | string, data: any): object[] => {
+    parents = toArr(parents);
+    parents.reverse().forEach((parent: string) => {
+        data = { [parent]: data };
+    });
+    return data;
+};
+
+export const get = (
+    path: string,
+    obj: object[],
+    defaultVal: any = undefined
+): any => {
+    const travel = (regexp: RegExp) =>
+        String.prototype.split
+            .call(path, regexp)
+            .filter(Boolean)
+            .reduce(
+                (res: { [key: string]: any }, key: string) =>
+                    res !== null && res !== undefined ? res[key] : res,
+                obj
+            );
+    const result = travel(/[,[\]]+?/) || travel(/[,[\].]+?/);
+    return result === undefined || result === obj ? defaultVal : result;
+};
+
+export const getArr = (el: any, defaultVal: any = []): any[] =>
+    isArr(el) ? el : defaultVal;
+
+export const getFunc = (el: any, args: any[] = []): any =>
+    isFunc(el) ? (isEmpty(args) ? el() : el(...args)) : el;
+
+export const getKey = (el: object[], key: any, defaultVal: any = null): any =>
+    hasKey(el, key) ? el[key] : defaultVal;
+
+export const getKeyArr = (
+    el: object[],
+    key: any,
+    defaultVal: any = []
+): any[] => (hasKeyArr(el, key) ? el[key] : defaultVal);
+
+export const getKeyBool = (
+    el: object[],
+    key: any,
+    defaultVal: any = false
+): boolean => (hasKeyBool(el, key) ? el[key] : defaultVal);
+
+export const getKeyFalse = (
+    el: object[],
+    key: any,
+    defaultVal: any = false
+): false => (hasKeyFalse(el, key) ? el[key] : defaultVal);
+
+export const getKeyFunc = (
+    el: any,
+    key: any,
+    args: any[] = [],
+    defaultVal: any = getKey(el, key)
+): any =>
+    hasKeyFunc(el, key)
+        ? isEmpty(args)
+            ? el[key]()
+            : el[key](...args)
+        : defaultVal;
+
+export const getKeyNum = (
+    el: object[],
+    key: any,
+    defaultVal: any = 0
+): number => (hasKeyNum(el, key) ? el[key] : defaultVal);
+
+export const getKeyObj = (
+    el: object[],
+    key: any,
+    defaultVal: any = {}
+): object[] => (hasKeyObj(el, key) ? el[key] : defaultVal);
+
+export const getKeyRegex = (
+    el: object[],
+    key: any,
+    defaultVal: any = null
+): RegExp => (hasKeyRegex(el, key) ? el[key] : defaultVal);
+
+export const getKeyStr = (
+    el: object[],
+    key: any,
+    prefix: string = "",
+    suffix: string = "",
+    defaultVal: any = ""
+): string => (hasKeyStr(el, key) ? `${prefix}${el[key]}${suffix}` : defaultVal);
+
+export const getKeyTrue = (
+    el: object[],
+    key: any,
+    defaultVal: any = true
+): true => (hasKeyTrue(el, key) ? el[key] : defaultVal);
+
+export const getSize = (el: any) => {
+    if (isObj(el)) {
+        el = Object.keys(el).length;
+    } else if (isStr(el) || isArr(el)) {
+        el = el.length;
+    } else if (isRegex(el)) {
+        el = 1;
+    }
+    return el;
+};
+
+export const has = (el: any[], key: any): boolean =>
+    isArr(el) && el.includes(key);
+
+export const hasKey = (el: object[], key: any): boolean =>
+    isEl(el) &&
+    (isArr(el) || isObj(el)) &&
+    Object.prototype.hasOwnProperty.call(el, key);
+
+// If el has a key => array pair
+export const hasKeyArr = (el: object[], key: any): boolean =>
+    hasKey(el, key) && isArr(el[key]);
+
+// If el has a key => boolean pair
+export const hasKeyBool = (el: object[], key: any): boolean =>
+    hasKey(el, key) && isBool(el[key]);
+
+// If el has a key => boolean (false) pair
+export const hasKeyFalse = (el: object[], key: any): boolean =>
+    hasKeyFalsy(el, key) && isBool(el[key]);
+
+// If el has a key => boolean (false) pair
+export const hasKeyFalsy = (el: object[], key: any): boolean =>
+    hasKey(el, key) && !el[key];
+
+// If el has a key => function pair
+export const hasKeyFunc = (el: object[], key: any): boolean =>
+    hasKey(el, key) && isFunc(el[key]);
+
+// If el has a key => number pair
+export const hasKeyNum = (el: object[], key: any): boolean =>
+    hasKey(el, key) && isNum(el[key]);
+
+// If el has a key => object pair
+export const hasKeyObj = (el: object[], key: any): boolean =>
+    hasKey(el, key) && isObj(el[key]);
+
+// If el has a key => regexp pair
+export const hasKeyRegex = (el: object[], key: any): boolean =>
+    hasKey(el, key) && isRegex(el[key]);
+
+// If el has a key => string pair
+export const hasKeyStr = (el: object[], key: any): boolean =>
+    hasKey(el, key) && isStr(el[key]);
+
+// If el has a set of specific key => value pairs
+export const hasKeysVal = (el: object[], pairs: any[][]): boolean => {
+    let result: boolean[] = [];
+    pairs.forEach((pair) => {
+        result.push(hasKeyVal(el, pair[0], pair[1]));
+    });
+    return !isEmpty(result) && !result.includes(false);
+};
+
+// If el has a key => boolean (true) pair
+export const hasKeyTrue = (el: object[], key: any): boolean =>
+    hasKeyTruthy(el, key) && isBool(el[key]);
+
+// If el has a key => boolean (true) pair
+export const hasKeyTruthy = (el: object[], key: any): boolean =>
+    hasKey(el, key) && !!el[key];
+
+// If el has a specific key => value pair
+export const hasKeyVal = (el: object[], key: any, val: any): boolean =>
+    hasKey(el, key) && el[key] == val;
+
+export const inObj = (obj: object[], key: any): boolean =>
+    Object.prototype.hasOwnProperty.call(obj, key);
+
+export const isArr = (el: any): boolean => Array.isArray(el);
+
+export const isBool = (el: any): boolean => toType(el) == "boolean";
+
+export const isEl = (el: any): boolean => el && el != null && !isUndefined(el);
+
+export const isEmpty = (el: any): boolean => !isLenGt(0, el);
+
+export const isEmptyArr = (el: any): boolean => isArr(el) && !isLenGt(0, el);
+
+export const isEmptyObj = (el: any): boolean => isObj(el) && !isLenGt(0, el);
+
+export const isEmptyStr = (el: any): boolean => isStr(el) && !isLenGt(0, el);
+
+export const isEq = (el1: any, el2: any): boolean =>
+    isEl(el1) && isEl(el2) && el1 == el2;
+
+export const isFunc = (el: any): boolean =>
+    toType(el) == "function" || toType(el) == "asyncfunction";
+
+export const isGt = (el1: any, el2: any): boolean =>
+    isEl(el1) && isEl(el2) && el1 > el2;
+
+export const isGtEq = (el1: any, el2: any): boolean =>
+    isEl(el1) && isEl(el2) && el1 >= el2;
+
+export const isLenEq = (len: number, el: any): boolean =>
+    isEl(el) && getSize(el) == len;
+
+export const isLenGt = (len: number, el: any): boolean =>
+    isEl(el) && getSize(el) > len;
+
+export const isLenGtEq = (len: number, el: any): boolean =>
+    isEl(el) && getSize(el) >= len;
+
+export const isLenLt = (len: number, el: any): boolean =>
+    isEl(el) && getSize(el) < len;
+
+export const isLenLtEq = (len: number, el: any): boolean =>
+    isEl(el) && getSize(el) <= len;
+
+export const isLt = (el1: any, el2: any): boolean =>
+    isEl(el1) && isEl(el2) && el1 < el2;
+
+export const isLtEq = (el1: any, el2: any): boolean =>
+    isEl(el1) && isEl(el2) && el1 <= el2;
+
+export const isNotEmpty = (el: any): boolean => isLenGt(0, el);
+
+export const isNotEmptyArr = (el: any): boolean => isArr(el) && isLenGt(0, el);
+
+export const isNotEmptyObj = (el: any): boolean => isObj(el) && isLenGt(0, el);
+
+export const isNotEmptyStr = (el: any): boolean => isStr(el) && isLenGt(0, el);
+
+export const isNum = (el: any): boolean => toType(el) == "number";
+
+export const isObj = (el: any): boolean => toType(el) == "object";
+
+export const isObjEq = (
+    obj1: object[],
+    obj2: object[],
+    keys: string[] = ["name"]
+): boolean => {
+    let result = true;
+    keys.forEach((key: any) => {
+        result =
+            result &&
+            hasKeyStr(obj1, key) &&
+            hasKeyStr(obj2, key) &&
+            obj1[key] == obj2[key];
+    });
+    return result;
+};
+
+export const isRegex = (el: any): boolean => toType(el) == "regexp";
+
+export const isStr = (el: any): boolean => toType(el) == "string";
+
+export const isUndefined = (el: any): boolean => toType(el) == "undefined";
+
+export const isURL = (el: any): boolean =>
+    el && el != null && el.startsWith("https://");
+
+exports.mergeArrs = (
+    arr1: any[],
+    arr2: any[],
+    comp: (el1: any, el2: any) => boolean,
+    action: (el1: any, el2: any) => any,
+    cleaner: (el: any[]) => any[] = (el: any[]) => el.filter(Boolean)
+): any[] => {
+    const A: any[] = [...arr1];
+    const B: any[] = [...arr2];
+    const intersection: any[] = [];
+    let result: any[] = [];
+    arr1.forEach((el1: any, i1: number) => {
+        arr2.forEach((el2: any, i2: number) => {
+            if (comp(el1, el2)) {
+                intersection.push(action(el1, el2));
+                delete A[i1];
+                delete B[i2];
+            }
+        });
+    });
+    result.push(...A, ...B, ...intersection);
+    result = cleaner(result);
+    return result;
+};
+
+export const omit = (obj: object[], omitKey: any) =>
+    Object.keys(obj)
+        .filter((key: any) => key != omitKey)
+        .reduce((result, key: any) => ({ ...result, [key]: obj[key] }), {});
+
+export const sleep = (ms: number): Promise<number> =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+export const toArr = (el: any): any[] => (isArr(el) ? el : [el]);
+
+// Function taken from:
+// https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
+export const toType = (obj: any): string =>
+    ({}.toString
+        .call(obj)
+        .match(/\s([a-zA-Z]+)/)![1]
+        .toLowerCase());
+
+export const toUpFirst = (str: string): string =>
+    str.charAt(0).toUpperCase() + str.slice(1);
