@@ -250,15 +250,16 @@ export const isObj = (el: any): boolean => toType(el) == "object";
 export const isObjEq = (
     obj1: { [key: string]: any },
     obj2: { [key: string]: any },
-    keys: string[] = ["name"]
+    keys: string[] = ["name"],
+    strict: boolean = true
 ): boolean => {
     let result = true;
     keys.forEach((key: string) => {
         result =
             result &&
-            hasKeyStr(obj1, key) &&
-            hasKeyStr(obj2, key) &&
-            obj1[key] == obj2[key];
+            hasKey(obj1, key) &&
+            hasKey(obj2, key) &&
+            (strict ? obj1[key] === obj2[key] : obj1[key] == obj2[key]);
     });
     return result;
 };
