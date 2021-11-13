@@ -9,6 +9,9 @@ export const addChild = (
     return data;
 };
 
+export const arrHasVal = (el: any[], val: any): boolean =>
+    isArr(el) && el.includes(val);
+
 export const get = (
     path: string,
     obj: { [key: string]: any },
@@ -305,6 +308,9 @@ export const omit = (obj: { [key: string]: any }, omitKey: string) =>
 
 export const sleep = (ms: number): Promise<number> =>
     new Promise((resolve) => setTimeout(resolve, ms));
+
+export const strHasVal = (el: string, val: any): boolean =>
+    isStr(el) && el.includes(val);
 
 export const toArr = (el: any): any[] => (isArr(el) ? el : [el]);
 
