@@ -193,6 +193,21 @@ export const inObj = (obj: { [key: string]: any }, key: string): boolean =>
 
 export const isArr = (el: any): boolean => Array.isArray(el);
 
+export const isArrLenEq = (len: number, el: any): boolean =>
+    isArr(el) && getSize(el) == len;
+
+export const isArrLenGt = (len: number, el: any): boolean =>
+    isArr(el) && getSize(el) > len;
+
+export const isArrLenGtEq = (len: number, el: any): boolean =>
+    isArr(el) && getSize(el) >= len;
+
+export const isArrLenLt = (len: number, el: any): boolean =>
+    isArr(el) && getSize(el) < len;
+
+export const isArrLenLtEq = (len: number, el: any): boolean =>
+    isArr(el) && getSize(el) <= len;
+
 export const isBool = (el: any): boolean => toType(el) == "boolean";
 
 export const isEl = (el: any): boolean => el && el != null && !isUndefined(el);
@@ -270,6 +285,21 @@ export const isObjEq = (
 export const isRegex = (el: any): boolean => toType(el) == "regexp";
 
 export const isStr = (el: any): boolean => toType(el) == "string";
+
+export const isStrLenEq = (len: number, el: any): boolean =>
+    isStr(el) && getSize(el) == len;
+
+export const isStrLenGt = (len: number, el: any): boolean =>
+    isStr(el) && getSize(el) > len;
+
+export const isStrLenGtEq = (len: number, el: any): boolean =>
+    isStr(el) && getSize(el) >= len;
+
+export const isStrLenLt = (len: number, el: any): boolean =>
+    isStr(el) && getSize(el) < len;
+
+export const isStrLenLtEq = (len: number, el: any): boolean =>
+    isStr(el) && getSize(el) <= len;
 
 export const isUndefined = (el: any): boolean => toType(el) == "undefined";
 
