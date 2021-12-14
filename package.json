@@ -1,6 +1,6 @@
 {
     "name": "richierich",
-    "version": "1.6.0",
+    "version": "2.0.0",
     "description": "A set of helper tools made to enrich your everyday code.",
     "main": "dist/index.js",
     "scripts": {
