@@ -339,6 +339,10 @@ exports.mergeArrs = (
     return result;
 };
 
+export const nowInMs = () => Date.now();
+
+export const nowInS = () => Math.floor(Date.now() / 1000);
+
 export const omit = (obj: { [key: string]: any }, omitKey: string) =>
     Object.keys(obj)
         .filter((key: string) => key != omitKey)
