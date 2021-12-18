@@ -319,22 +319,29 @@ exports.mergeArrs = (
     arr2: any[],
     comp: (el1: any, el2: any) => boolean,
     action: (el1: any, el2: any) => any,
-    cleaner: ((el: any[]) => any[]) | null = null
+    cleaner: ((el: any[]) => any[]) | null = null,
+    strict: boolean = true
 ): any[] => {
     const A: any[] = [...arr1];
     const B: any[] = [...arr2];
-    const intersection: any[] = [];
+    const pureIntersec: any[] = [];
+    const intersec: any[] = [];
     let result: any[] = [];
     arr1.forEach((el1: any, i1: number) => {
         arr2.forEach((el2: any, i2: number) => {
-            if (comp(el1, el2)) {
-                intersection.push(action(el1, el2));
+            if (
+                comp(el1, el2) &&
+                (!strict ||
+                    (strict && !pureIntersec.some(comp.bind(null, el1))))
+            ) {
+                pureIntersec.push(el2);
+                intersec.push(action(el1, el2));
                 delete A[i1];
                 delete B[i2];
             }
         });
     });
-    result.push(...A, ...B, ...intersection);
+    result.push(...A, ...B, ...intersec);
     result = isFunc(cleaner) ? cleaner!(result) : result;
     return result;
 };
