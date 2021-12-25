@@ -352,9 +352,9 @@ export const nowInMs = () => Date.now();
 
 export const nowInS = () => Math.floor(nowInMs() / 1000);
 
-export const omit = (obj: { [key: string]: any }, omitKey: string) =>
+export const omit = (obj: { [key: string]: any }, omitKeys: string[]) =>
     Object.keys(obj)
-        .filter((key: string) => key != omitKey)
+        .filter((key: string) => !toArr(omitKeys).includes(key))
         .reduce((result, key: string) => ({ ...result, [key]: obj[key] }), {});
 
 export const sleep = (ms: number): Promise<number> =>
