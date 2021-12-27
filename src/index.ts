@@ -360,25 +360,16 @@ export const omit = (obj: { [key: string]: any }, omitKeys: string[]) =>
 export const sleep = (ms: number): Promise<number> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
-export const sortObjsAsc = (
+export const sortKeyNums = (
     objs: { [key: string]: any }[],
-    key: string
+    key: string,
+    order: string = "desc"
 ): void => {
     if (isArr(objs))
-        objs.sort(
-            (a: { [key: string]: any }, b: { [key: string]: any }) =>
-                getKeyNum(a, key) - getKeyNum(b, key)
-        );
-};
-
-export const sortObjsDesc = (
-    objs: { [key: string]: any }[],
-    key: string
-): void => {
-    if (isArr(objs))
-        objs.sort(
-            (a: { [key: string]: any }, b: { [key: string]: any }) =>
-                getKeyNum(b, key) - getKeyNum(a, key)
+        objs.sort((a: { [key: string]: any }, b: { [key: string]: any }) =>
+            order == "asc"
+                ? getKeyNum(a, key) - getKeyNum(b, key)
+                : getKeyNum(b, key) - getKeyNum(a, key)
         );
 };
 
