@@ -363,7 +363,7 @@ export const sleep = (ms: number): Promise<number> =>
 export const sortKeyNums = (
     objs: { [key: string]: any }[],
     key: string,
-    order: string = "desc"
+    order: string = "asc"
 ): void => {
     if (isArr(objs))
         objs.sort((a: { [key: string]: any }, b: { [key: string]: any }) =>
