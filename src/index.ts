@@ -109,6 +109,19 @@ export const getRandomEl = (arr: any[]): any => {
     return getKey(arr, <string>(<any>index));
 };
 
+export const getRandomElByChance = (arr: any[]): any => {
+    const d = Math.random();
+    let result = arr[0];
+    for (let i = arr.length - 1; i >= 0; --i) {
+        const perc = 1 / Math.pow(2, i);
+        if (d < perc) {
+            result = arr[i];
+            break;
+        }
+    }
+    return result;
+};
+
 // Function taken from:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 export const getRandomInt = (min: number, max: number): number => {
