@@ -110,12 +110,13 @@ export const getRandomEl = (arr: any[]): any => {
 };
 
 export const getRandomElByChance = (arr: any[]): any => {
+    let result = getKey(arr, <any>0);
+    const arrLen = getKeyNum(arr, "length");
     const d = Math.random();
-    let result = arr[0];
-    for (let i = arr.length - 1; i >= 0; --i) {
+    for (let i = arrLen - 1; i >= 0; --i) {
         const perc = 1 / Math.pow(2, i);
         if (d < perc) {
-            result = arr[i];
+            result = getKey(arr, <any>i);
             break;
         }
     }
