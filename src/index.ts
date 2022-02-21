@@ -12,6 +12,13 @@ export const addChild = (
 export const arrHasVal = (el: any[], val: any): boolean =>
     isArr(el) && el.includes(val);
 
+export const bind = (fn: Function, ...args: any[]): any => {
+    const boundFn = fn.bind(null, ...args);
+    boundFn.source = fn;
+    boundFn.args = args;
+    return boundFn;
+};
+
 export const get = (
     path: string,
     obj: { [key: string]: any },
