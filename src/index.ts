@@ -310,7 +310,7 @@ export const isObj = (el: any): boolean => toType(el) == "object";
 export const isObjEq = (
     obj1: { [key: string]: any },
     obj2: { [key: string]: any },
-    keys: string[] = ["name"],
+    keys: string[] = Object.keys({ ...obj1, ...obj2 }),
     strict: boolean = true
 ): boolean => {
     let result = true;
