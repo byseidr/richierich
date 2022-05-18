@@ -61,6 +61,16 @@ export const getKeyBool = (
     defaultVal: any = false
 ): boolean => (hasKeyBool(el, key) ? el[key] : defaultVal);
 
+export const getKeyClone = (
+    el: { [key: string]: any },
+    key: string,
+    defaultVal: undefined
+): { [key: string]: any } =>
+    (el[key] && { [key]: el[key] }) ||
+    (defaultVal && {
+        [key]: defaultVal,
+    });
+
 export const getKeyFalse = (
     el: { [key: string]: any },
     key: string,
