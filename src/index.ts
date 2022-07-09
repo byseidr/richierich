@@ -262,6 +262,11 @@ export const isArrLenLtEq = (len: number, el: any): boolean =>
 
 export const isBool = (el: any): boolean => toType(el) == "boolean";
 
+export const isBoolArr = (els: any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !els.some((el) => !isBool(el));
+};
+
 export const isEl = (el: any): boolean => el && el != null && !isUndefined(el);
 
 export const isEmpty = (el: any): boolean => !isLenGt(0, el);
@@ -277,6 +282,11 @@ export const isEq = (el1: any, el2: any): boolean =>
 
 export const isFunc = (el: any): boolean =>
     toType(el) == "function" || toType(el) == "asyncfunction";
+
+export const isFuncArr = (els: any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !els.some((el) => !isFunc(el));
+};
 
 export const isGt = (el1: any, el2: any): boolean =>
     isEl(el1) && isEl(el2) && el1 > el2;
@@ -315,7 +325,17 @@ export const isNotEmptyStr = (el: any): boolean => isStr(el) && isLenGt(0, el);
 
 export const isNum = (el: any): boolean => toType(el) == "number";
 
+export const isNumArr = (els: any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !els.some((el) => !isNum(el));
+};
+
 export const isObj = (el: any): boolean => toType(el) == "object";
+
+export const isObjArr = (els: any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !els.some((el) => !isObj(el));
+};
 
 export const isObjEq = (
     obj1: { [key: string]: any },
@@ -336,7 +356,17 @@ export const isObjEq = (
 
 export const isRegex = (el: any): boolean => toType(el) == "regexp";
 
+export const isRegexArr = (els: any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !els.some((el) => !isRegex(el));
+};
+
 export const isStr = (el: any): boolean => toType(el) == "string";
+
+export const isStrArr = (els: any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !els.some((el) => !isStr(el));
+};
 
 export const isStrLenEq = (len: number, el: any): boolean =>
     isStr(el) && getSize(el) == len;
@@ -355,8 +385,18 @@ export const isStrLenLtEq = (len: number, el: any): boolean =>
 
 export const isUndefined = (el: any): boolean => toType(el) == "undefined";
 
+export const isUndefinedArr = (els: any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !els.some((el) => !isUndefined(el));
+};
+
 export const isURL = (el: any): boolean =>
     el && el != null && el.startsWith("https://");
+
+export const isURLArr = (els: any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !els.some((el) => !isURL(el));
+};
 
 exports.mergeArrs = (
     arr1: any[],
