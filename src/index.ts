@@ -482,6 +482,19 @@ export const strHasVal = (el: string, val: any): boolean =>
 
 export const toArr = (el: any): any[] => (isArr(el) ? el : [el]);
 
+export const toStr = (el: any) => {
+    if (isObj(el) || isArr(el)) {
+        el = JSON.stringify(el);
+    } else if (isNum(el) || isBool(el)) {
+        el = el.toString();
+    } else if (isRegex(el)) {
+        el = el.source;
+    } else {
+        el = String(el);
+    }
+    return el;
+};
+
 // Function taken from:
 // https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
 export const toType = (obj: any): string =>
