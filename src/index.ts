@@ -262,9 +262,9 @@ export const isArrLenLtEq = (len: number, el: any): boolean =>
 
 export const isBool = (el: any): boolean => toType(el) == "boolean";
 
-export const isBoolArr = (els: any[]): boolean => {
+export const isBoolArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !els.some((el) => !isBool(el));
+    return !(<any[]>els).some((el) => !isBool(el));
 };
 
 export const isEl = (el: any): boolean => el && el != null && !isUndefined(el);
@@ -283,9 +283,9 @@ export const isEq = (el1: any, el2: any): boolean =>
 export const isFunc = (el: any): boolean =>
     toType(el) == "function" || toType(el) == "asyncfunction";
 
-export const isFuncArr = (els: any[]): boolean => {
+export const isFuncArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !els.some((el) => !isFunc(el));
+    return !(<any[]>els).some((el) => !isFunc(el));
 };
 
 export const isGt = (el1: any, el2: any): boolean =>
@@ -325,16 +325,16 @@ export const isNotEmptyStr = (el: any): boolean => isStr(el) && isLenGt(0, el);
 
 export const isNum = (el: any): boolean => toType(el) == "number";
 
-export const isNumArr = (els: any[]): boolean => {
+export const isNumArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !els.some((el) => !isNum(el));
+    return !(<any[]>els).some((el) => !isNum(el));
 };
 
 export const isObj = (el: any): boolean => toType(el) == "object";
 
-export const isObjArr = (els: any[]): boolean => {
+export const isObjArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !els.some((el) => !isObj(el));
+    return !(<any[]>els).some((el) => !isObj(el));
 };
 
 export const isObjEq = (
@@ -356,16 +356,16 @@ export const isObjEq = (
 
 export const isRegex = (el: any): boolean => toType(el) == "regexp";
 
-export const isRegexArr = (els: any[]): boolean => {
+export const isRegexArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !els.some((el) => !isRegex(el));
+    return !(<any[]>els).some((el) => !isRegex(el));
 };
 
 export const isStr = (el: any): boolean => toType(el) == "string";
 
-export const isStrArr = (els: any[]): boolean => {
+export const isStrArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !els.some((el) => !isStr(el));
+    return !(<any[]>els).some((el) => !isStr(el));
 };
 
 export const isStrLenEq = (len: number, el: any): boolean =>
@@ -385,17 +385,17 @@ export const isStrLenLtEq = (len: number, el: any): boolean =>
 
 export const isUndefined = (el: any): boolean => toType(el) == "undefined";
 
-export const isUndefinedArr = (els: any[]): boolean => {
+export const isUndefinedArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !els.some((el) => !isUndefined(el));
+    return !(<any[]>els).some((el) => !isUndefined(el));
 };
 
 export const isURL = (el: any): boolean =>
     el && el != null && el.startsWith("https://");
 
-export const isURLArr = (els: any[]): boolean => {
+export const isURLArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !els.some((el) => !isURL(el));
+    return !(<any[]>els).some((el) => !isURL(el));
 };
 
 exports.mergeArrs = (
