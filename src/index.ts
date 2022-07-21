@@ -77,6 +77,12 @@ export const getKeyFalse = (
     defaultVal: any = false
 ): false => (hasKeyFalse(el, key) ? el[key] : defaultVal);
 
+export const getKeyFalsy = (
+    el: { [key: string]: any },
+    key: string,
+    defaultVal: any = false
+): false => (hasKeyFalsy(el, key) ? el[key] : defaultVal);
+
 export const getKeyFunc = (
     el: { [key: string]: any },
     key: string,
@@ -120,6 +126,12 @@ export const getKeyTrue = (
     key: string,
     defaultVal: any = true
 ): true => (hasKeyTrue(el, key) ? el[key] : defaultVal);
+
+export const getKeyTruthy = (
+    el: { [key: string]: any },
+    key: string,
+    defaultVal: any = true
+): true => (hasKeyTruthy(el, key) ? el[key] : defaultVal);
 
 export const getRandomEl = (arr: any[]): any => {
     const index = getRandomInt(0, arr.length);
