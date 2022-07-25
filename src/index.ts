@@ -410,23 +410,23 @@ export const isObjEq = (
     return result;
 };
 
-export const isOp = (len: number, el: any, op: string): boolean => {
+export const isOp = (el1: any, el2: any, op: string): boolean => {
     let result = false;
     switch (op) {
         case "==":
-            result = isEq(len, el);
+            result = isEq(el1, el2);
             break;
         case "<=":
-            result = isLtEq(len, el);
+            result = isLtEq(el1, el2);
             break;
         case ">=":
-            result = isGtEq(len, el);
+            result = isGtEq(el1, el2);
             break;
         case "<":
-            result = isLt(len, el);
+            result = isLt(el1, el2);
             break;
         case ">":
-            result = isGt(len, el);
+            result = isGt(el1, el2);
             break;
     }
     return result;
