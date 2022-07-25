@@ -272,6 +272,28 @@ export const isArrLenLt = (len: number, el: any): boolean =>
 export const isArrLenLtEq = (len: number, el: any): boolean =>
     isArr(el) && getSize(el) <= len;
 
+export const isArrLenOp = (len: number, el: any, op: string): boolean => {
+    let result = false;
+    switch (op) {
+        case "==":
+            result = isArrLenEq(len, el);
+            break;
+        case "<=":
+            result = isArrLenLtEq(len, el);
+            break;
+        case ">=":
+            result = isArrLenGtEq(len, el);
+            break;
+        case "<":
+            result = isArrLenLt(len, el);
+            break;
+        case ">":
+            result = isArrLenGt(len, el);
+            break;
+    }
+    return result;
+};
+
 export const isBool = (el: any): boolean => toType(el) == "boolean";
 
 export const isBoolArr = (els: any | any[]): boolean => {
@@ -321,6 +343,28 @@ export const isLenLt = (len: number, el: any): boolean =>
 export const isLenLtEq = (len: number, el: any): boolean =>
     isEl(el) && getSize(el) <= len;
 
+export const isLenOp = (len: number, el: any, op: string): boolean => {
+    let result = false;
+    switch (op) {
+        case "==":
+            result = isLenEq(len, el);
+            break;
+        case "<=":
+            result = isLenLtEq(len, el);
+            break;
+        case ">=":
+            result = isLenGtEq(len, el);
+            break;
+        case "<":
+            result = isLenLt(len, el);
+            break;
+        case ">":
+            result = isLenGt(len, el);
+            break;
+    }
+    return result;
+};
+
 export const isLt = (el1: any, el2: any): boolean =>
     isEl(el1) && isEl(el2) && el1 < el2;
 
@@ -366,6 +410,28 @@ export const isObjEq = (
     return result;
 };
 
+export const isOp = (len: number, el: any, op: string): boolean => {
+    let result = false;
+    switch (op) {
+        case "==":
+            result = isEq(len, el);
+            break;
+        case "<=":
+            result = isLtEq(len, el);
+            break;
+        case ">=":
+            result = isGtEq(len, el);
+            break;
+        case "<":
+            result = isLt(len, el);
+            break;
+        case ">":
+            result = isGt(len, el);
+            break;
+    }
+    return result;
+};
+
 export const isRegex = (el: any): boolean => toType(el) == "regexp";
 
 export const isRegexArr = (els: any | any[]): boolean => {
@@ -394,6 +460,28 @@ export const isStrLenLt = (len: number, el: any): boolean =>
 
 export const isStrLenLtEq = (len: number, el: any): boolean =>
     isStr(el) && getSize(el) <= len;
+
+export const isStrLenOp = (len: number, el: any, op: string): boolean => {
+    let result = false;
+    switch (op) {
+        case "==":
+            result = isStrLenEq(len, el);
+            break;
+        case "<=":
+            result = isStrLenLtEq(len, el);
+            break;
+        case ">=":
+            result = isStrLenGtEq(len, el);
+            break;
+        case "<":
+            result = isStrLenLt(len, el);
+            break;
+        case ">":
+            result = isStrLenGt(len, el);
+            break;
+    }
+    return result;
+};
 
 export const isUndefined = (el: any): boolean => toType(el) == "undefined";
 
