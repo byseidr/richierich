@@ -491,7 +491,7 @@ export const isUndefinedArr = (els: any | any[]): boolean => {
 };
 
 export const isUrl = (el: any): boolean =>
-    el && el != null && el.startsWith("https://");
+    el && el != null && /https?:\/\//.test(el);
 
 export const isUrlArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
