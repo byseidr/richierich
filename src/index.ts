@@ -490,12 +490,12 @@ export const isUndefinedArr = (els: any | any[]): boolean => {
     return !(<any[]>els).some((el) => !isUndefined(el));
 };
 
-export const isURL = (el: any): boolean =>
+export const isUrl = (el: any): boolean =>
     el && el != null && el.startsWith("https://");
 
-export const isURLArr = (els: any | any[]): boolean => {
+export const isUrlArr = (els: any | any[]): boolean => {
     if (!isArr(els)) return false;
-    return !(<any[]>els).some((el) => !isURL(el));
+    return !(<any[]>els).some((el) => !isUrl(el));
 };
 
 exports.mergeArrs = (
