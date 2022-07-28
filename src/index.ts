@@ -257,6 +257,11 @@ export const inObj = (obj: { [key: string]: any }, key: string): boolean =>
 
 export const isArr = (el: any): boolean => Array.isArray(el);
 
+export const isArrArr = (els: any | any[]): boolean => {
+    if (!isArr(els)) return false;
+    return !(<any[]>els).some((el) => !isArr(el));
+};
+
 export const isArrLenEq = (len: number, el: any): boolean =>
     isArr(el) && getSize(el) == len;
 
