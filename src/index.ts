@@ -571,6 +571,14 @@ export const shuffleArr = (array: any[]): any[] => {
 export const sleep = (ms: number): Promise<number> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
+export const sort = (arr: any[], key?: any) => {
+    var collator = new Intl.Collator(undefined, {
+        numeric: true,
+        sensitivity: "base",
+    });
+    arr.sort((a, b) => collator.compare(a?.[key] ?? a, b?.[key] ?? b));
+};
+
 export const sortKeyNums = (
     objs: { [key: string]: any }[],
     key: string,
