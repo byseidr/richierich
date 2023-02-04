@@ -179,6 +179,12 @@ export const getSize = (el: any) => {
     return el;
 };
 
+export const getSortedKeys = (el: { [key: string]: any }): string[] => {
+    const keys = Object.keys(el);
+    sort(keys);
+    return keys;
+};
+
 export const has = (el: any[], key: number): boolean =>
     isArr(el) && el.includes(key);
 
