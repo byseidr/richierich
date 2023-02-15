@@ -168,15 +168,12 @@ export const getRandomIntInc = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
 
-export const getSize = (el: any) => {
-    if (isObj(el)) {
-        el = Object.keys(el).length;
-    } else if (isStr(el) || isArr(el)) {
-        el = el.length;
-    } else if (isRegex(el)) {
-        el = 1;
-    }
-    return el;
+export const getSize = (el: any): number => {
+    if (isNum(el)) return el;
+    if (isObj(el)) return Object.keys(el).length;
+    if (isStr(el) || isArr(el)) return el.length;
+    if (isBool(el)) return +el;
+    return +!!el;
 };
 
 export const getSortedKeys = (el: { [key: string]: any }): string[] => {
