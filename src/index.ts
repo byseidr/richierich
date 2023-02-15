@@ -40,8 +40,8 @@ export const get = (
 export const getArr = (el: any, defaultVal: any = []): any[] =>
     isArr(el) ? el : defaultVal;
 
-export const getFunc = (el: any, args: any[] = []): any =>
-    isFunc(el) ? (isEmpty(args) ? el() : el(...args)) : el;
+export const getFunc = (el: any, args: any | any[] = []): any =>
+    isFunc(el) ? (isEmpty(args) ? el() : el(...toArr(args))) : el;
 
 export const getKey = (
     el: { [key: string]: any },
