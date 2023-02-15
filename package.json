@@ -4,6 +4,9 @@
     "description": "A set of helper tools made to enrich your everyday code.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prepublish": "tsc"
