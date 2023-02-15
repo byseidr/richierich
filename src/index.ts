@@ -390,6 +390,8 @@ export const isNotEmptyObj = (el: any): boolean => isObj(el) && isLenGt(0, el);
 
 export const isNotEmptyStr = (el: any): boolean => isStr(el) && isLenGt(0, el);
 
+export const isNull = (el: any): boolean => toType(el) == "null";
+
 export const isNum = (el: any): boolean => toType(el) == "number";
 
 export const isNumArr = (els: any | any[]): boolean => {
