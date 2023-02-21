@@ -46,22 +46,22 @@ export const getFunc = (el: any, args: any | any[] = []): any =>
     isFunc(el) ? (isEmpty(args) ? el() : el(...toArr(args))) : el;
 
 export const getKey = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = null
-): any => (hasKey(el, key) ? el[key] : defaultVal);
+): any => (hasKey(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyArr = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = []
-): any[] => (hasKeyArr(el, key) ? el[key] : defaultVal);
+): any[] => (hasKeyArr(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyBool = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = false
-): boolean => (hasKeyBool(el, key) ? el[key] : defaultVal);
+): boolean => (hasKeyBool(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyClone = (
     el: Indexable,
@@ -74,66 +74,70 @@ export const getKeyClone = (
     });
 
 export const getKeyFalse = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = false
-): false => (hasKeyFalse(el, key) ? el[key] : defaultVal);
+): false => (hasKeyFalse(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyFalsy = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = false
-): false => (hasKeyFalsy(el, key) ? el[key] : defaultVal);
+): false => (hasKeyFalsy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyFunc = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     args: any[] = [],
     defaultVal: any = getKey(el, key)
 ): any =>
     hasKeyFunc(el, key)
         ? isEmpty(args)
-            ? el[key]()
-            : el[key](...args)
+            ? (<Indexable>el)[<Index>key]()
+            : (<Indexable>el)[<Index>key](...args)
         : defaultVal;
 
 export const getKeyNum = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = 0
-): number => (hasKeyNum(el, key) ? el[key] : defaultVal);
+): number => (hasKeyNum(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyObj = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = {}
-): { [key: Index]: any } => (hasKeyObj(el, key) ? el[key] : defaultVal);
+): { [key: Index]: any } =>
+    hasKeyObj(el, key) ? (<Indexable>el)[<Index>key] : defaultVal;
 
 export const getKeyRegex = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = null
-): RegExp => (hasKeyRegex(el, key) ? el[key] : defaultVal);
+): RegExp => (hasKeyRegex(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyStr = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     prefix: string = "",
     suffix: string = "",
     defaultVal: any = ""
-): string => (hasKeyStr(el, key) ? `${prefix}${el[key]}${suffix}` : defaultVal);
+): string =>
+    hasKeyStr(el, key)
+        ? `${prefix}${(<Indexable>el)[<Index>key]}${suffix}`
+        : defaultVal;
 
 export const getKeyTrue = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = true
-): true => (hasKeyTrue(el, key) ? el[key] : defaultVal);
+): true => (hasKeyTrue(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyTruthy = (
-    el: Indexable,
-    key: Index,
+    el?: Indexable | null,
+    key?: Index | null,
     defaultVal: any = true
-): true => (hasKeyTruthy(el, key) ? el[key] : defaultVal);
+): true => (hasKeyTruthy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getRandomEl = (arr: any[]): any => {
     const index = getRandomInt(0, arr.length);
@@ -187,49 +191,63 @@ export const getSortedKeys = (el: Indexable): string[] => {
 export const has = (el: any[], key: number): boolean =>
     isArr(el) && el.includes(key);
 
-export const hasKey = (el: Indexable, key: Index): boolean =>
+export const hasKey = (el?: Indexable | null, key?: Index | null): boolean =>
     isEl(el) &&
+    isEl(key) &&
     (isArr(el) || isObj(el)) &&
-    Object.prototype.hasOwnProperty.call(el, key);
+    Object.prototype.hasOwnProperty.call(el, <Index>key);
 
 // If el has a key => array pair
-export const hasKeyArr = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && isArr(el[key]);
+export const hasKeyArr = (el?: Indexable | null, key?: Index | null): boolean =>
+    hasKey(el, key) && isArr((<Indexable>el)[<Index>key]);
 
 // If el has a key => boolean pair
-export const hasKeyBool = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && isBool(el[key]);
+export const hasKeyBool = (
+    el?: Indexable | null,
+    key?: Index | null
+): boolean => hasKey(el, key) && isBool((<Indexable>el)[<Index>key]);
 
 // If el has a key => boolean (false) pair
-export const hasKeyFalse = (el: Indexable, key: Index): boolean =>
-    hasKeyFalsy(el, key) && isBool(el[key]);
+export const hasKeyFalse = (
+    el?: Indexable | null,
+    key?: Index | null
+): boolean => hasKeyFalsy(el, key) && isBool((<Indexable>el)[<Index>key]);
 
 // If el has a key => boolean (false) pair
-export const hasKeyFalsy = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && !el[key];
+export const hasKeyFalsy = (
+    el?: Indexable | null,
+    key?: Index | null
+): boolean => hasKey(el, key) && !(<Indexable>el)[<Index>key];
 
 // If el has a key => function pair
-export const hasKeyFunc = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && isFunc(el[key]);
+export const hasKeyFunc = (
+    el?: Indexable | null,
+    key?: Index | null
+): boolean => hasKey(el, key) && isFunc((<Indexable>el)[<Index>key]);
 
 // If el has a key => number pair
-export const hasKeyNum = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && isNum(el[key]);
+export const hasKeyNum = (el?: Indexable | null, key?: Index | null): boolean =>
+    hasKey(el, key) && isNum((<Indexable>el)[<Index>key]);
 
 // If el has a key => object pair
-export const hasKeyObj = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && isObj(el[key]);
+export const hasKeyObj = (el?: Indexable | null, key?: Index | null): boolean =>
+    hasKey(el, key) && isObj((<Indexable>el)[<Index>key]);
 
 // If el has a key => regexp pair
-export const hasKeyRegex = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && isRegex(el[key]);
+export const hasKeyRegex = (
+    el?: Indexable | null,
+    key?: Index | null
+): boolean => hasKey(el, key) && isRegex((<Indexable>el)[<Index>key]);
 
 // If el has a key => string pair
-export const hasKeyStr = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && isStr(el[key]);
+export const hasKeyStr = (el?: Indexable | null, key?: Index | null): boolean =>
+    hasKey(el, key) && isStr((<Indexable>el)[<Index>key]);
 
 // If el has a set of specific key => value pairs
-export const hasKeysVal = (el: Indexable, pairs: any[][]): boolean => {
+export const hasKeysVal = (
+    el?: Indexable | null,
+    pairs: any[][] = []
+): boolean => {
     let result: boolean[] = [];
     pairs.forEach((pair) => {
         result.push(hasKeyVal(el, pair[0], pair[1]));
@@ -238,16 +256,23 @@ export const hasKeysVal = (el: Indexable, pairs: any[][]): boolean => {
 };
 
 // If el has a key => boolean (true) pair
-export const hasKeyTrue = (el: Indexable, key: Index): boolean =>
-    hasKeyTruthy(el, key) && isBool(el[key]);
+export const hasKeyTrue = (
+    el?: Indexable | null,
+    key?: Index | null
+): boolean => hasKeyTruthy(el, key) && isBool((<Indexable>el)[<Index>key]);
 
 // If el has a key => boolean (true) pair
-export const hasKeyTruthy = (el: Indexable, key: Index): boolean =>
-    hasKey(el, key) && !!el[key];
+export const hasKeyTruthy = (
+    el?: Indexable | null,
+    key?: Index | null
+): boolean => hasKey(el, key) && !!(<Indexable>el)[<Index>key];
 
 // If el has a specific key => value pair
-export const hasKeyVal = (el: Indexable, key: Index, val: any): boolean =>
-    hasKey(el, key) && el[key] == val;
+export const hasKeyVal = (
+    el?: Indexable | null,
+    key?: Index | null,
+    val?: any
+): boolean => hasKey(el, key) && (<Indexable>el)[<Index>key] == val;
 
 export const inObj = (obj: Indexable, key: Index): boolean =>
     Object.prototype.hasOwnProperty.call(obj, key);
