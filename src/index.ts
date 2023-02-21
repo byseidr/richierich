@@ -573,7 +573,7 @@ export const shuffleArr = (array: any[]): any[] => {
     return array;
 };
 
-export const sleep = (ms: number): Promise<number> =>
+export const sleep = (ms: number = 1000): Promise<number> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
 export const sort = (arr: any[], key?: any) => {
