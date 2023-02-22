@@ -529,7 +529,7 @@ export const isUrlArr = (els: any | any[]): boolean => {
     return !(<any[]>els).some((el) => !isUrl(el));
 };
 
-exports.mergeArrs = (
+export const mergeArrs = (
     arr1: any[],
     arr2: any[],
     comp: (el1: any, el2: any) => boolean,
