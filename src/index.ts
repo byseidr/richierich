@@ -691,11 +691,14 @@ export const sleep = (ms: number = 1000): Promise<number> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
 export const sort = (arr: any[], key?: any) => {
-    var collator = new Intl.Collator(undefined, {
-        numeric: true,
-        sensitivity: "base",
-    });
-    arr.sort((a, b) => collator.compare(a?.[key] ?? a, b?.[key] ?? b));
+    const col = collator(
+        {
+            numeric: true,
+            sensitivity: "base",
+        },
+        undefined
+    );
+    arr.sort((a, b) => col(a?.[key] ?? a, b?.[key] ?? b));
 };
 
 export const sortKeyNums = (
