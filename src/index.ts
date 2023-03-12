@@ -21,6 +21,32 @@ export const bind = (fn: Function, ...args: any[]): any => {
     return boundFn;
 };
 
+export const collator = (
+    options: Intl.CollatorOptions,
+    locales: string | string[] = "en-US"
+): ((x: string, y: string) => number) => {
+    const collator = new Intl.Collator(locales, options);
+    return collator.compare;
+};
+
+export const dateTimeFormat = (
+    dateTime: number | Date,
+    options: Intl.DateTimeFormatOptions,
+    locales: string | string[] = "en-US"
+): string => {
+    const formatter = new Intl.DateTimeFormat(locales, options);
+    return formatter.format(dateTime);
+};
+
+export const displayNames = (
+    code: string,
+    options: Intl.DisplayNamesOptions,
+    locales: Intl.LocalesArgument = "en-US"
+): string | undefined => {
+    const display = new Intl.DisplayNames(locales, options);
+    return display.of(code);
+};
+
 export const get = (
     path: string,
     obj: { [key: Index]: any },
@@ -541,6 +567,15 @@ export const isUrlArr = (els: any | any[]): boolean => {
     return !(<any[]>els).some((el) => !isUrl(el));
 };
 
+export const listFormat = (
+    list: Iterable<string>,
+    options: Intl.ListFormatOptions,
+    locales: string | string[] = "en-US"
+): string => {
+    const formatter = new Intl.ListFormat(locales, options);
+    return formatter.format(list);
+};
+
 export const mergeArrs = (
     arr1: any[],
     arr2: any[],
@@ -579,10 +614,48 @@ export const nowInMs = () => Date.now();
 
 export const nowInS = () => Math.floor(nowInMs() / 1000);
 
+export const numberFormat = (
+    num: number | bigint,
+    options: Intl.NumberFormatOptions,
+    locales: string | string[] = "en-US"
+): string => {
+    const formatter = new Intl.NumberFormat(locales, options);
+    return formatter.format(num);
+};
+
 export const omit = (obj: { [key: Index]: any }, omitKeys: string | string[]) =>
     Object.keys(obj)
         .filter((key: Index) => !toArr(omitKeys).includes(key))
         .reduce((result, key: Index) => ({ ...result, [key]: obj[key] }), {});
+
+export const pluralRules = (
+    num: number,
+    options: Intl.PluralRulesOptions,
+    locales: string | string[] = "en-US"
+): string => {
+    const display = new Intl.PluralRules(locales, options);
+    return display.select(num);
+};
+
+export const relativeTimeFormat = (
+    num: number,
+    unit: Intl.RelativeTimeFormatUnit,
+    options: Intl.DateTimeFormatOptions,
+    locales: string | string[] = "en-US"
+): string => {
+    const formatter = new Intl.RelativeTimeFormat(locales, options);
+    return formatter.format(num, unit);
+};
+
+export const segmenter = (
+    str: string,
+    options: Intl.SegmenterOptions,
+    locales: string | string[] = "en-US"
+): Intl.SegmentData[] => {
+    const segmenter = new Intl.Segmenter(locales, options);
+    const segments = segmenter.segment(str);
+    return Array.from(segments);
+};
 
 export const shuffleArr = (array: any[]): any[] => {
     let currentIndex: number = array.length,
