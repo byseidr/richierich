@@ -9,9 +9,17 @@ export type Enumerate<
     ? Acc[number]
     : Enumerate<N, [...Acc, Acc["length"]]>;
 
+export type GenericRange<S extends number, E extends number> =
+    | LargeRange<S, E>
+    | `${LargeRange<S, E>}`;
+
 export type Index = string | number | symbol;
 
 export type Indexable = { [key: Index]: any };
+
+export type LargeRange<S extends number, E extends number> =
+    | Range<S, E>
+    | RangeWithLeadingZero<S, E>;
 
 export type Range<F extends number, T extends number> =
     | Exclude<Enumerate<T>, Enumerate<F>>
