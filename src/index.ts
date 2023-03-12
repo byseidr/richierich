@@ -243,6 +243,18 @@ export const hasKeyRegex = (
 export const hasKeyStr = (el?: Indexable | null, key?: Index | null): boolean =>
     hasKey(el, key) && isStr((<Indexable>el)[<Index>key]);
 
+// If el has a set of specific keys
+export const hasKeys = (
+    el?: Indexable | null,
+    keys: Index | Index[] | null = []
+): boolean => {
+    let result: boolean[] = [];
+    toArr(keys).forEach((key) => {
+        result.push(hasKey(el, key));
+    });
+    return !isEmpty(result) && !result.includes(false);
+};
+
 // If el has a set of specific key => value pairs
 export const hasKeysVal = (
     el?: Indexable | null,
