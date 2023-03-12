@@ -569,16 +569,9 @@ export const isUrlArr = (els: any | any[]): boolean => {
 
 export const lead = (
     num: string | number,
-    size = 1,
+    size = 2,
     locales: string | string[] = "en-US"
-): string =>
-    numberFormat(
-        Number(num),
-        {
-            minimumIntegerDigits: num.toString().length + size,
-        },
-        locales
-    );
+): string => numberFormat(Number(num), { minimumIntegerDigits: size }, locales);
 
 export const listFormat = (
     list: Iterable<string>,
@@ -745,13 +738,7 @@ export const toUpFirst = (str: string): string =>
 
 export const trail = (
     num: string | number,
-    size = 1,
+    size = 2,
     locales: string | string[] = "en-US"
 ): string =>
-    numberFormat(
-        Number(num),
-        {
-            minimumFractionDigits: num.toString().length + size,
-        },
-        locales
-    );
+    numberFormat(Number(num), { minimumFractionDigits: size }, locales);
