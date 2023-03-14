@@ -650,12 +650,12 @@ export const mergeKeyArr = (
     altKeys: Index | Index[] = []
 ) => {
     if (!isObj(obj) || !isIndex(key)) return;
-    toArr(altKeys)
-        .filter(Boolean)
-        .forEach((altKey) => {
-            obj[key] = [...toArr(obj[key] ?? []), ...toArr(obj[altKey] ?? [])];
-            delete obj[altKey];
-        });
+    altKeys = toArr(altKeys).filter(Boolean);
+    if (!hasAnyOfKeys(obj, [key, ...altKeys])) return;
+    altKeys.forEach((altKey) => {
+        obj[key] = [...toArr(obj[key] ?? []), ...toArr(obj[altKey] ?? [])];
+        delete obj[altKey];
+    });
 };
 
 // Merge key => obj pairs
@@ -665,15 +665,15 @@ export const mergeKeyObj = (
     altKeys: Index | Index[] = []
 ) => {
     if (!isObj(obj) || !isIndex(key)) return;
-    toArr(altKeys)
-        .filter(Boolean)
-        .forEach((altKey) => {
-            obj[key] = {
-                ...(obj[key] ?? {}),
-                ...(obj[altKey] ?? {}),
-            };
-            delete obj[altKey];
-        });
+    altKeys = toArr(altKeys).filter(Boolean);
+    if (!hasAnyOfKeys(obj, [key, ...altKeys])) return;
+    altKeys.forEach((altKey) => {
+        obj[key] = {
+            ...(obj[key] ?? {}),
+            ...(obj[altKey] ?? {}),
+        };
+        delete obj[altKey];
+    });
 };
 
 export const nowInM = () => Math.floor(nowInS() / 60);
