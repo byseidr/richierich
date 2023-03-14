@@ -217,6 +217,30 @@ export const getSortedKeys = (el: Indexable): string[] => {
 export const has = (el: any[], key: number): boolean =>
     isArr(el) && el.includes(key);
 
+// If el has any key in a set of specific keys
+export const hasAnyOfKeys = (
+    el?: Indexable | null,
+    keys: Index | Index[] | null = []
+): boolean => {
+    let result: boolean[] = [];
+    toArr(keys).forEach((key) => {
+        result.push(hasKey(el, key));
+    });
+    return !isEmpty(result) && result.includes(true);
+};
+
+// If el has any key => value pair in a set of specific key => value pairs
+export const hasAnyOfKeysVal = (
+    el?: Indexable | null,
+    pairs: any[][] = []
+): boolean => {
+    let result: boolean[] = [];
+    pairs.forEach((pair) => {
+        result.push(hasKeyVal(el, pair[0], pair[1]));
+    });
+    return !isEmpty(result) && result.includes(true);
+};
+
 export const hasKey = (el?: Indexable | null, key?: Index | null): boolean =>
     isEl(el) &&
     isEl(key) &&
