@@ -393,6 +393,9 @@ export const isGt = (el1: any, el2: any): boolean =>
 export const isGtEq = (el1: any, el2: any): boolean =>
     isEl(el1) && isEl(el2) && el1 >= el2;
 
+export const isIndex = (el: any): boolean =>
+    isStr(el) || isNum(el) || isSymbol(el);
+
 export const isLenEq = (len: number, el: any): boolean =>
     isEl(el) && getSize(el) == len;
 
