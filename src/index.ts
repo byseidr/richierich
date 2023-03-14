@@ -619,6 +619,35 @@ export const mergeArrs = (
     return result;
 };
 
+// Merge key => arr pairs
+export const mergeKeyArr = (
+    obj: { [key: Index]: any },
+    key: Index,
+    altKeys: Index[] = []
+) => {
+    if (!isObj(obj) || !isIndex(key)) return;
+    altKeys?.forEach?.((altKey) => {
+        obj[key] = [...toArr(obj[key] ?? []), ...toArr(obj[altKey] ?? [])];
+        delete obj[altKey];
+    });
+};
+
+// Merge key => obj pairs
+export const mergeKeyObj = (
+    obj: { [key: Index]: any },
+    key: Index,
+    altKeys: Index[] = []
+) => {
+    if (!isObj(obj) || !isIndex(key)) return;
+    altKeys?.forEach?.((altKey) => {
+        obj[key] = {
+            ...(obj[key] ?? {}),
+            ...(obj[altKey] ?? {}),
+        };
+        delete obj[altKey];
+    });
+};
+
 export const nowInM = () => Math.floor(nowInS() / 60);
 
 export const nowInMs = () => Date.now();
