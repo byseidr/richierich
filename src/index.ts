@@ -550,6 +550,8 @@ export const isStrLenOp = (len: number, el: any, op: string): boolean => {
     return result;
 };
 
+export const isSymbol = (el: any): boolean => toType(el) == "symbol";
+
 export const isType = (type: string, el: any): boolean => toType(el) == type;
 
 export const isUndefined = (el: any): boolean => toType(el) == "undefined";
