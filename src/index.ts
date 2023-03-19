@@ -676,6 +676,29 @@ export const mergeKeyObj = (
     });
 };
 
+export const mergeObjs = (
+    obj1: Indexable,
+    obj2: Indexable,
+    comp: (el1: [Index, any], el2: [Index, any]) => boolean,
+    action: (el1: [Index, any], el2: [Index, any]) => any,
+    cleaner: ((el: [Index, any][]) => any[]) | null = null,
+    strict: boolean = true
+): Indexable => {
+    const result: Indexable = {};
+    const arrays = mergeArrs(
+        Object.entries(obj1),
+        Object.entries(obj2),
+        comp,
+        action,
+        cleaner,
+        strict
+    );
+    arrays.forEach((el) => {
+        result[el[0]] = el[1];
+    });
+    return result;
+};
+
 export const nowInM = () => Math.floor(nowInS() / 60);
 
 export const nowInMs = () => Date.now();
