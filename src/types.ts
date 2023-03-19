@@ -17,6 +17,13 @@ export type Index = string | number | symbol;
 
 export type Indexable = { [key: Index]: any };
 
+export type JSONValue =
+    | string
+    | number
+    | boolean
+    | { [x: string]: JSONValue }
+    | Array<JSONValue>;
+
 export type LargeRange<S extends number, E extends number> =
     | Range<S, E>
     | RangeWithLeadingZero<S, E>;
