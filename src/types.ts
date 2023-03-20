@@ -15,7 +15,7 @@ export type GenericRange<S extends number, E extends number> =
 
 export type Index = string | number | symbol;
 
-export type Indexable = { [key: Index]: any };
+export type Indexable<T = any> = { [key: Index]: T };
 
 export type JSONValue =
     | string
