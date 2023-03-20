@@ -643,6 +643,27 @@ export const mergeArrs = (
     return result;
 };
 
+export const mergeKey = (
+    obj: { [key: Index]: any },
+    key: Index,
+    altKeys: Index | Index[] = [],
+    action?: (el1: any, el2: any) => any
+) => {
+    if (!isObj(obj) || !isIndex(key)) return;
+    altKeys = toArr(altKeys).filter(Boolean);
+    const allKeys = [key, ...altKeys];
+    if (!hasAnyOfKeys(obj, allKeys)) return;
+    let result: any;
+    Object.keys(obj)
+        .filter((key) => allKeys.includes(key))
+        .forEach((key, i) => {
+            result =
+                i > 0 && isFunc(action) ? action!(result, obj[key]) : obj[key];
+            delete obj[key];
+        });
+    obj[key] = result;
+};
+
 // Merge key => arr pairs
 export const mergeKeyArr = (
     obj: { [key: Index]: any },
