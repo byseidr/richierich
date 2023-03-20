@@ -29,6 +29,19 @@ export const collator = (
     return collator.compare;
 };
 
+export const convertKeys = (
+    obj: { [key: Index]: any },
+    action: (el: any) => any
+) => {
+    if (!isObj(obj)) return;
+    Object.keys(obj).forEach((key) => {
+        const newKey = action(key);
+        if (newKey === key) return;
+        obj[newKey] = obj[key];
+        delete obj[key];
+    });
+};
+
 export const dateTimeFormat = (
     dateTime: number | Date,
     options: Intl.DateTimeFormatOptions,
