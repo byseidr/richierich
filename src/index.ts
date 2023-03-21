@@ -833,6 +833,11 @@ export const strHasVal = (el: string, val: any): boolean =>
 
 export const toArr = (el: any): any[] => (isArr(el) ? el : [el]);
 
+export const toNum = (el: any): number => {
+    el = Number(el);
+    return Number.isNaN(el) ? 0 : el;
+};
+
 export const toStr = (el: any) => {
     if (isObj(el) || isArr(el)) {
         el = JSON.stringify(el);
