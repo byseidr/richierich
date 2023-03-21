@@ -21,6 +21,11 @@ export const bind = (fn: Function, ...args: any[]): any => {
     return boundFn;
 };
 
+// Function inspired by:
+// https://www.webtips.dev/webtips/javascript/how-to-clamp-numbers-in-javascript
+export const clamp = (min: number, num: number, max: number) =>
+    Math.min(Math.max(min, num), max);
+
 export const collator = (
     options: Intl.CollatorOptions,
     locales: string | string[] = "en-US"
@@ -626,6 +631,8 @@ export const listFormat = (
     return formatter.format(list);
 };
 
+export const max = (...nums: number[]) => Math.max(...nums);
+
 export const mergeArrs = (
     arr1: any[],
     arr2: any[],
@@ -734,6 +741,8 @@ export const mergeObjs = (
     });
     return result;
 };
+
+export const min = (...nums: number[]) => Math.min(...nums);
 
 export const nowInM = () => Math.floor(nowInS() / 60);
 
