@@ -232,6 +232,14 @@ export const getSortedKeys = (el: Indexable): string[] => {
     return keys;
 };
 
+export const getToken = async (prefix = "", suffix = "", uppercase = true) => {
+    let result = Math.floor(Date.now() / 1000).toString(36);
+    result = `${prefix ?? ""}${result}${suffix ?? ""}`;
+    if (uppercase) result = result.toUpperCase();
+    await sleep();
+    return result;
+};
+
 export const has = (el: any[], key: number): boolean =>
     isArr(el) && el.includes(key);
 
