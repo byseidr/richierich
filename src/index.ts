@@ -810,6 +810,16 @@ export const shuffleArr = (array: any[]): any[] => {
     return array;
 };
 
+/**
+ * Converts characters in a string to their simplest form, which is lowercase without diacritics
+ * @param {string} str - The string of characters to be converted
+ */
+export const simplify = (str: string) =>
+    str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "");
+
 export const sleep = (ms: number = 1000): Promise<number> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
