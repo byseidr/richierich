@@ -624,6 +624,11 @@ export const isUrlArr = (els: any | any[]): boolean => {
     return !(<any[]>els).some((el) => !isUrl(el));
 };
 
+export const last = (arr: any[]) => {
+    if (!isArr(arr) || isEmpty(arr)) return;
+    return arr[arr.length - 1];
+};
+
 export const lead = (
     num: string | number,
     size = 2,
