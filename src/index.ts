@@ -900,3 +900,5 @@ export const trail = (
     locales: string | string[] = "en-US"
 ): string =>
     numberFormat(Number(num), { minimumFractionDigits: size }, locales);
+
+export const uniq = (...els: any[]) => Array.from(new Set(els));
