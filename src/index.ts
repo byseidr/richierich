@@ -1,9 +1,6 @@
 import { Index, Indexable } from "./types";
 
-export const addChild = (
-    parents: string[] | string,
-    data: any
-): { [key: Index]: any } => {
+export const addChild = (parents: string[] | string, data: any): Indexable => {
     parents = toArr(parents);
     parents.reverse().forEach((parent: string) => {
         data = { [parent]: data };
@@ -34,10 +31,7 @@ export const collator = (
     return collator.compare;
 };
 
-export const convertKeys = (
-    obj: { [key: Index]: any },
-    action: (el: any) => any
-) => {
+export const convertKeys = (obj: Indexable, action: (el: any) => any) => {
     if (!isObj(obj)) return;
     Object.keys(obj).forEach((key) => {
         const newKey = action(key);
@@ -67,7 +61,7 @@ export const displayNames = (
 
 export const get = (
     path: string,
-    obj: { [key: Index]: any },
+    obj: Indexable,
     defaultVal: any = undefined
 ): any => {
     const travel = (regexp: RegExp) =>
@@ -75,7 +69,7 @@ export const get = (
             .call(path, regexp)
             .filter(Boolean)
             .reduce(
-                (res: { [key: Index]: any }, key: Index) =>
+                (res: Indexable, key: Index) =>
                     res !== null && res !== undefined ? res[key] : res,
                 obj
             );
@@ -111,7 +105,7 @@ export const getKeyClone = (
     el: Indexable,
     key: Index,
     defaultVal: undefined
-): { [key: Index]: any } =>
+): Indexable =>
     (el[key] && { [key]: el[key] }) ||
     (defaultVal && {
         [key]: defaultVal,
@@ -151,8 +145,7 @@ export const getKeyObj = (
     el?: Indexable | null,
     key?: Index | null,
     defaultVal: any = {}
-): { [key: Index]: any } =>
-    hasKeyObj(el, key) ? (<Indexable>el)[<Index>key] : defaultVal;
+): Indexable => (hasKeyObj(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyRegex = (
     el?: Indexable | null,
@@ -516,8 +509,8 @@ export const isObjArr = (els: any | any[]): boolean => {
 };
 
 export const isObjEq = (
-    obj1: { [key: Index]: any },
-    obj2: { [key: Index]: any },
+    obj1: Indexable,
+    obj2: Indexable,
     keys: string[] = Object.keys({ ...obj1, ...obj2 }),
     strict: boolean = true
 ): boolean => {
@@ -679,7 +672,7 @@ export const mergeArrs = (
 };
 
 export const mergeKey = (
-    obj: { [key: Index]: any },
+    obj: Indexable,
     key: Index,
     altKeys: Index | Index[] = [],
     action?: (el1: any, el2: any) => any
@@ -701,7 +694,7 @@ export const mergeKey = (
 
 // Merge key => arr pairs
 export const mergeKeyArr = (
-    obj: { [key: Index]: any },
+    obj: Indexable,
     key: Index,
     altKeys: Index | Index[] = []
 ) => {
@@ -716,7 +709,7 @@ export const mergeKeyArr = (
 
 // Merge key => obj pairs
 export const mergeKeyObj = (
-    obj: { [key: Index]: any },
+    obj: Indexable,
     key: Index,
     altKeys: Index | Index[] = []
 ) => {
@@ -772,7 +765,7 @@ export const numberFormat = (
     return formatter.format(num);
 };
 
-export const omit = (obj: { [key: Index]: any }, omitKeys: string | string[]) =>
+export const omit = (obj: Indexable, omitKeys: string | string[]) =>
     Object.keys(obj)
         .filter((key: Index) => !toArr(omitKeys).includes(key))
         .reduce((result, key: Index) => ({ ...result, [key]: obj[key] }), {});
@@ -848,12 +841,12 @@ export const sort = (arr: any[], key?: any) => {
 };
 
 export const sortKeyNums = (
-    objs: { [key: Index]: any }[],
+    objs: Indexable[],
     key: Index,
     order: string = "asc"
 ): void => {
     if (isArr(objs))
-        objs.sort((a: { [key: Index]: any }, b: { [key: Index]: any }) =>
+        objs.sort((a: Indexable, b: Indexable) =>
             order == "asc"
                 ? getKeyNum(a, key) - getKeyNum(b, key)
                 : getKeyNum(b, key) - getKeyNum(a, key)
