@@ -894,4 +894,14 @@ export const trail = (
 ): string =>
     numberFormat(Number(num), { minimumFractionDigits: size }, locales);
 
+// Function taken from:
+// https://stackoverflow.com/questions/26156292/trim-specific-character-from-a-string
+export const trim = (str: string, chars: string): string => {
+    chars = chars.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+    return str.replace(
+        new RegExp("^[" + chars + "]+|[" + chars + "]+$", "g"),
+        ""
+    );
+};
+
 export const uniq = (...els: any[]) => Array.from(new Set(els));
