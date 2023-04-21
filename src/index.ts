@@ -94,7 +94,7 @@ export const getDir = (
     dirName: string | string[],
     filter = (file: string) => file.endsWith(".js")
 ) => {
-    const result: { [key: string]: any } = {};
+    const result: Indexable = {};
     for (const fileName of readDir(dirName, filter)) {
         const filePath = path.join(...getDirName(dirName), fileName);
         const fileExports = require(filePath);
@@ -860,7 +860,7 @@ export const relativeTimeFormat = (
 
 export const runDir = (
     dirName: string | string[],
-    callback: (fileExports: { [key: string]: any }, fileName: string) => any,
+    callback: (fileExports: Indexable, fileName: string) => any,
     filter = (file: string) => file.endsWith(".js")
 ) => {
     for (const fileName of readDir(dirName, filter)) {
