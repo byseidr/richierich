@@ -985,7 +985,3 @@ export const trim = (str: string, chars: string): string => {
 };
 
 export const uniq = (...els: any[]) => Array.from(new Set(els));
-
-const __parfilename = getParFileName(stack());
-
-const __pardirname = getParDirName(__parfilename);
