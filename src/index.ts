@@ -1,3 +1,4 @@
+import { readdirSync } from "fs";
 import path from "path";
 import stack, { CallSite } from "callsite";
 
@@ -818,6 +819,15 @@ export const pluralRules = (
 ): string => {
     const display = new Intl.PluralRules(locales, options);
     return display.select(num);
+};
+
+export const readDir = (
+    dirName: string | string[],
+    filter = (file: string) => file.endsWith(".js")
+) => {
+    const dirPath = path.join(...getDirName(dirName));
+    const dirFiles = readdirSync(dirPath).filter(filter);
+    return dirFiles;
 };
 
 export const relativeTimeFormat = (
