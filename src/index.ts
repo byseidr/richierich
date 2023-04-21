@@ -231,7 +231,7 @@ export const getParFileName = (
     });
     const parFileName = file?.getFileName();
     if (!parFileName) return;
-    return parFileName;
+    return trim(parFileName, "^file:/+");
 };
 
 export const getRandomEl = (arr: any[]): any => {
