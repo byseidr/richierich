@@ -20,7 +20,7 @@
     "author": "Seidr",
     "license": "MIT",
     "devDependencies": {
-        "typescript": "^4.4.2"
+        "typescript": "^4.9.5"
     },
     "repository": {
         "type": "git",
