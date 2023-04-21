@@ -110,7 +110,8 @@ export const getDirAsArr = (
 
 export const getDirName = (dirName: string | string[]): string[] => {
     dirName = toArr(dirName).filter(Boolean);
-    if (dirName.length < 2) dirName.unshift(__pardirname);
+    const parDirName = getParDirName(stack());
+    if (dirName.length < 2) dirName.unshift(parDirName);
     return dirName;
 };
 
