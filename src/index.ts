@@ -1,3 +1,6 @@
+import path from "path";
+import { CallSite } from "callsite";
+
 import { Index, Indexable } from "./types";
 
 export const addChild = (parents: string[] | string, data: any): Indexable => {
@@ -181,6 +184,32 @@ export const getKeyTruthy = (
     key?: Index | null,
     defaultVal: any = true
 ): true => (hasKeyTruthy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
+
+export const getParDirName = (
+    parFileName?: string | CallSite[],
+    fileName: string = __filename
+) => {
+    parFileName = isStr(parFileName)
+        ? parFileName
+        : getParFileName(<CallSite[]>parFileName, fileName);
+    return path.dirname(<string>parFileName ?? fileName);
+};
+
+export const getParFileName = (
+    stack: CallSite[],
+    fileName: string = __filename
+) =>
+    stack
+        .find((site) => {
+            const siteFileName = site.getFileName();
+            return (
+                siteFileName &&
+                !new RegExp(`^node:|${escapeRegExp(fileName)}`).test(
+                    siteFileName
+                )
+            );
+        })
+        ?.getFileName();
 
 export const getRandomEl = (arr: any[]): any => {
     const index = getRandomInt(0, arr.length);
