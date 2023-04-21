@@ -89,6 +89,12 @@ export const get = (
 export const getArr = (el: any, defaultVal: any = []): any[] =>
     isArr(el) ? el : defaultVal;
 
+export const getDirName = (dirName: string | string[]): string[] => {
+    dirName = toArr(dirName).filter(Boolean);
+    if (dirName.length < 2) dirName.unshift(__pardirname);
+    return dirName;
+};
+
 export const getFunc = (el: any, args: any | any[] = []): any =>
     isFunc(el) ? (isEmpty(args) ? el() : el(...toArr(args))) : el;
 
