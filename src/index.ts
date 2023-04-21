@@ -90,6 +90,24 @@ export const get = (
 export const getArr = (el: any, defaultVal: any = []): any[] =>
     isArr(el) ? el : defaultVal;
 
+export const getDir = (
+    dirName: string | string[],
+    filter = (file: string) => file.endsWith(".js")
+) => {
+    const result: { [key: string]: any } = {};
+    for (const fileName of readDir(dirName, filter)) {
+        const filePath = path.join(...getDirName(dirName), fileName);
+        const fileExports = require(filePath);
+        result[fileName] = fileExports;
+    }
+    return result;
+};
+
+export const getDirAsArr = (
+    dirName: string | string[],
+    filter = (file: string) => file.endsWith(".js")
+) => Object.values(getDir(dirName, filter));
+
 export const getDirName = (dirName: string | string[]): string[] => {
     dirName = toArr(dirName).filter(Boolean);
     if (dirName.length < 2) dirName.unshift(__pardirname);
@@ -838,6 +856,18 @@ export const relativeTimeFormat = (
 ): string => {
     const formatter = new Intl.RelativeTimeFormat(locales, options);
     return formatter.format(num, unit);
+};
+
+export const runDir = (
+    dirName: string | string[],
+    callback: (fileExports: { [key: string]: any }, fileName: string) => any,
+    filter = (file: string) => file.endsWith(".js")
+) => {
+    for (const fileName of readDir(dirName, filter)) {
+        const filePath = path.join(...getDirName(dirName), fileName);
+        const fileExports = require(filePath);
+        callback(fileExports, fileName);
+    }
 };
 
 export const segmenter = (
