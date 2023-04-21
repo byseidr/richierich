@@ -59,6 +59,12 @@ export const displayNames = (
     return display.of(code);
 };
 
+// Function taken from:
+// https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex/6969486#6969486
+export const escapeRegExp = (string: string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+};
+
 export const get = (
     path: string,
     obj: Indexable,
