@@ -1,5 +1,5 @@
 import path from "path";
-import { CallSite } from "callsite";
+import stack, { CallSite } from "callsite";
 
 import { Index, Indexable } from "./types";
 
@@ -940,3 +940,7 @@ export const trim = (str: string, chars: string): string => {
 };
 
 export const uniq = (...els: any[]) => Array.from(new Set(els));
+
+const __parfilename = getParFileName(stack());
+
+const __pardirname = getParDirName(__parfilename);
