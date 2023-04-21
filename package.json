@@ -19,7 +19,11 @@
     ],
     "author": "Seidr",
     "license": "MIT",
+    "dependencies": {
+        "callsite": "^1.0.0"
+    },
     "devDependencies": {
+        "@types/callsite": "^1.0.31",
         "typescript": "^4.9.5"
     },
     "repository": {
