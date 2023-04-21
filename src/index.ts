@@ -223,18 +223,16 @@ export const getParDirName = (
 export const getParFileName = (
     stack: CallSite[],
     fileName: string = __filename
-) =>
-    stack
-        .find((site) => {
-            const siteFileName = site.getFileName();
-            return (
-                siteFileName &&
-                !new RegExp(`^node:|${escapeRegExp(fileName)}`).test(
-                    siteFileName
-                )
-            );
-        })
-        ?.getFileName();
+) => {
+    const file = stack?.find?.((site) => {
+        const siteFileName = site.getFileName();
+        const fileNameRegExp = new RegExp(`^node:|${escapeRegExp(fileName)}`);
+        return siteFileName && !fileNameRegExp.test(siteFileName);
+    });
+    const parFileName = file?.getFileName();
+    if (!parFileName) return;
+    return parFileName;
+};
 
 export const getRandomEl = (arr: any[]): any => {
     const index = getRandomInt(0, arr.length);
