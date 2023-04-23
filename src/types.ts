@@ -44,3 +44,5 @@ export type TupleToUnion<T extends unknown[]> = T[number];
 export type UpFirstString = `${Uppercase<string>}${string}`;
 
 export type ValueOf<T> = T[keyof T];
+
+export type ZeroWidthSpace = "\u200B";
