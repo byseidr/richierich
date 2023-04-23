@@ -964,8 +964,8 @@ export const toType = (obj: any): string =>
         .match(/\s([a-zA-Z]+)/)![1]
         .toLowerCase());
 
-export const toUpFirst = (str: string): string =>
-    str.charAt(0).toUpperCase() + str.slice(1);
+export const toUpFirst = (str: string): `${Uppercase<string>}${string}` =>
+    `${<Uppercase<string>>str.charAt(0).toUpperCase()}${str.slice(1)}`;
 
 export const trail = (
     num: string | number,
