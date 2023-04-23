@@ -2,7 +2,7 @@ import { readdirSync } from "fs";
 import path from "path";
 import stack, { CallSite } from "callsite";
 
-import { Index, Indexable } from "./types";
+import { Index, Indexable, UpFirstString } from "./types";
 
 export const addChild = (parents: string[] | string, data: any): Indexable => {
     parents = toArr(parents);
@@ -964,7 +964,7 @@ export const toType = (obj: any): string =>
         .match(/\s([a-zA-Z]+)/)![1]
         .toLowerCase());
 
-export const toUpFirst = (str: string): `${Uppercase<string>}${string}` =>
+export const toUpFirst = (str: string): UpFirstString =>
     `${<Uppercase<string>>str.charAt(0).toUpperCase()}${str.slice(1)}`;
 
 export const trail = (
