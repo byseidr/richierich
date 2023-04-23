@@ -2,7 +2,7 @@ import { readdirSync } from "fs";
 import path from "path";
 import stack, { CallSite } from "callsite";
 
-import { Index, Indexable, UpFirstString } from "./types";
+import { Index, Indexable, UpFirstString, ZeroWidthSpace } from "./types";
 
 export const addChild = (parents: string[] | string, data: any): Indexable => {
     parents = toArr(parents);
@@ -985,3 +985,7 @@ export const trim = (str: string, chars: string): string => {
 };
 
 export const uniq = (...els: any[]) => Array.from(new Set(els));
+
+export const zeroWidthSpace: ZeroWidthSpace = "\u200B";
+
+export const zwsp = zeroWidthSpace;
