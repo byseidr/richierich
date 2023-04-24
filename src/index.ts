@@ -87,7 +87,7 @@ export const get = (
     return result === undefined || result === obj ? defaultVal : result;
 };
 
-export const getArr = (el: any, defaultVal: any = []): any[] =>
+export const getArr = (el: any, defaultVal: any[] = []): any[] =>
     isArr(el) ? el : defaultVal;
 
 export const getDir = (
@@ -127,29 +127,27 @@ export const getKey = (
 export const getKeyArr = (
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any = []
+    defaultVal: any[] = []
 ): any[] => (hasKeyArr(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyBool = (
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any = false
+    defaultVal: boolean = false
 ): boolean => (hasKeyBool(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyClone = (
     el: Indexable,
     key: Index,
-    defaultVal: undefined
-): Indexable =>
-    (el[key] && { [key]: el[key] }) ||
-    (defaultVal && {
-        [key]: defaultVal,
-    });
+    defaultVal: Indexable
+): Indexable => ({
+    [key]: getKey(el, key, defaultVal),
+});
 
 export const getKeyFalse = (
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any = false
+    defaultVal: false = false
 ): false => (hasKeyFalse(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyFalsy = (
@@ -173,19 +171,19 @@ export const getKeyFunc = (
 export const getKeyNum = (
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any = 0
+    defaultVal: number = 0
 ): number => (hasKeyNum(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyObj = (
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any = {}
+    defaultVal: Indexable = {}
 ): Indexable => (hasKeyObj(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyRegex = (
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any = null
+    defaultVal: RegExp = new RegExp("")
 ): RegExp => (hasKeyRegex(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyStr = (
@@ -193,7 +191,7 @@ export const getKeyStr = (
     key?: Index | null,
     prefix: string = "",
     suffix: string = "",
-    defaultVal: any = ""
+    defaultVal: string = ""
 ): string =>
     hasKeyStr(el, key)
         ? `${prefix}${(<Indexable>el)[<Index>key]}${suffix}`
@@ -202,7 +200,7 @@ export const getKeyStr = (
 export const getKeyTrue = (
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any = true
+    defaultVal: true = true
 ): true => (hasKeyTrue(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyTruthy = (
