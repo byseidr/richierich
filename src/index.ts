@@ -154,7 +154,7 @@ export const getKeyFalsy = (
     el?: Indexable | null,
     key?: Index | null,
     defaultVal: any = false
-): false => (hasKeyFalsy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
+): any => (hasKeyFalsy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyFunc = (
     el?: Indexable | null,
@@ -207,7 +207,7 @@ export const getKeyTruthy = (
     el?: Indexable | null,
     key?: Index | null,
     defaultVal: any = true
-): true => (hasKeyTruthy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
+): any => (hasKeyTruthy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getParDirName = (
     parFileName?: string | CallSite[],
