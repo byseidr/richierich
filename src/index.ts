@@ -128,10 +128,15 @@ export const getFunc = <T = any>(
 
 export const getKey = <T = any>(
     el?: Indexable | null,
-    key?: Index | null,
+    keys?: Index | Index[] | null | null[] | undefined[],
     defaultVal?: T
-): T | undefined =>
-    hasKey(el, key) ? (<Indexable>el)[<Index>key] : defaultVal;
+): T | undefined => {
+    keys = <Index[]>toArr(keys).filter(Boolean);
+    for (const key of keys) {
+        if (hasKey(el, key)) return (<Indexable>el)[<Index>key];
+    }
+    return defaultVal;
+};
 
 export const getKeyArr = <T = any>(
     el?: Indexable | null,
