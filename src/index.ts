@@ -87,8 +87,8 @@ export const get = (
     return result === undefined || result === obj ? defaultVal : result;
 };
 
-export const getArr = (el: any, defaultVal: any[] = []): any[] =>
-    isArr(el) ? el : defaultVal;
+export const getArr = <T = any>(el: T | T[], defaultVal: T[] = []): T[] =>
+    isArr(el) ? <T[]>el : defaultVal;
 
 export const getDir = (
     dirName: string | string[],
@@ -115,12 +115,16 @@ export const getDirName = (dirName: string | string[]): string[] => {
     return dirName;
 };
 
-export const getFunc = (
-    el: any,
+export const getFunc = <T = any>(
+    el: T | ((...args: any[]) => T),
     args: any | any[] = [],
-    defaultVal: any = el
-): any =>
-    isFunc(el) ? (isEmpty(args) ? el() : el(...toArr(args))) : defaultVal;
+    defaultVal: T = <T>el
+): T =>
+    isFunc(el)
+        ? isEmpty(args)
+            ? (<(...args: any[]) => T>el)()
+            : (<(...args: any[]) => T>el)(...toArr(args))
+        : defaultVal;
 
 export const getKey = (
     el?: Indexable | null,
