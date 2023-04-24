@@ -871,6 +871,9 @@ export const relativeTimeFormat = (
     return formatter.format(num, unit);
 };
 
+export const remove = (str: string, pattern: RegExp) =>
+    str?.replace(pattern, "");
+
 export const runDir = (
     dirName: string | string[],
     callback: (fileExports: Indexable, fileName: string) => any,
