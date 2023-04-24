@@ -133,11 +133,11 @@ export const getKey = <T = any>(
 ): T | undefined =>
     hasKey(el, key) ? (<Indexable>el)[<Index>key] : defaultVal;
 
-export const getKeyArr = (
+export const getKeyArr = <T = any>(
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any[] = []
-): any[] => (hasKeyArr(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
+    defaultVal: T[] = []
+): T[] => (hasKeyArr(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyBool = (
     el?: Indexable | null,
@@ -165,12 +165,12 @@ export const getKeyFalsy = (
     defaultVal: any = false
 ): any => (hasKeyFalsy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
-export const getKeyFunc = (
+export const getKeyFunc = <T = any>(
     el?: Indexable | null,
     key?: Index | null,
     args: any[] = [],
-    defaultVal: any = getKey(el, key)
-): any =>
+    defaultVal: T | undefined = getKey<T>(el, key)
+): T | undefined =>
     hasKeyFunc(el, key)
         ? isEmpty(args)
             ? (<Indexable>el)[<Index>key]()
