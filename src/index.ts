@@ -809,6 +809,8 @@ export const mergeObjs = (
 
 export const min = (...nums: number[]) => Math.min(...nums);
 
+export const noop = () => {};
+
 export const nowInM = () => Math.floor(nowInS() / 60);
 
 export const nowInMs = () => Date.now();
