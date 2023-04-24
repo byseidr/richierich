@@ -126,11 +126,12 @@ export const getFunc = <T = any>(
             : (<(...args: any[]) => T>el)(...toArr(args))
         : defaultVal;
 
-export const getKey = (
+export const getKey = <T = any>(
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal?: any
-): any => (hasKey(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
+    defaultVal?: T
+): T | undefined =>
+    hasKey(el, key) ? (<Indexable>el)[<Index>key] : defaultVal;
 
 export const getKeyArr = (
     el?: Indexable | null,
