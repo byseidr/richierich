@@ -809,7 +809,7 @@ export const mergeObjs = (
 
 export const min = (...nums: number[]) => Math.min(...nums);
 
-export const noop = () => {};
+export const noop = (...args: any[]) => {};
 
 export const nowInM = () => Math.floor(nowInS() / 60);
 
