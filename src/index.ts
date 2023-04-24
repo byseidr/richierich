@@ -833,7 +833,7 @@ export const numberFormat = (
     return formatter.format(num);
 };
 
-export const omit = (obj: Indexable, omitKeys: string | string[]) =>
+export const omit = (obj: Indexable, omitKeys: Index | Index[]) =>
     Object.keys(obj)
         .filter((key: Index) => !toArr(omitKeys).includes(key))
         .reduce((result, key: Index) => ({ ...result, [key]: obj[key] }), {});
