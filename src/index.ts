@@ -121,7 +121,7 @@ export const getFunc = (el: any, args: any | any[] = []): any =>
 export const getKey = (
     el?: Indexable | null,
     key?: Index | null,
-    defaultVal: any = null
+    defaultVal?: any
 ): any => (hasKey(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
 export const getKeyArr = (
