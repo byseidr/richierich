@@ -115,8 +115,12 @@ export const getDirName = (dirName: string | string[]): string[] => {
     return dirName;
 };
 
-export const getFunc = (el: any, args: any | any[] = []): any =>
-    isFunc(el) ? (isEmpty(args) ? el() : el(...toArr(args))) : el;
+export const getFunc = (
+    el: any,
+    args: any | any[] = [],
+    defaultVal: any = el
+): any =>
+    isFunc(el) ? (isEmpty(args) ? el() : el(...toArr(args))) : defaultVal;
 
 export const getKey = (
     el?: Indexable | null,
