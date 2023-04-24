@@ -945,7 +945,8 @@ export const sortKeyNums = (
 export const strHasVal = (el: string, val: any): boolean =>
     isStr(el) && el.includes(val);
 
-export const toArr = (el: any): any[] => (isArr(el) ? el : [el]);
+export const toArr = <T = any>(el: T | T[]): T[] =>
+    isArr(el) ? <T[]>el : [<T>el];
 
 export const toNum = (el: any): number => {
     el = Number(el);
