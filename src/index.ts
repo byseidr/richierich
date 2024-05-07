@@ -1,7 +1,3 @@
-import { readdirSync } from "fs";
-import path from "path";
-import stack, { CallSite } from "callsite";
-
 import { Index, Indexable, UpFirstString, ZeroWidthSpace } from "./types";
 
 export const addChild = (parents: string[] | string, data: any): Indexable => {
@@ -89,31 +85,6 @@ export const get = (
 
 export const getArr = <T = any>(el: T | T[], defaultVal: T[] = []): T[] =>
     isArr(el) ? <T[]>el : defaultVal;
-
-export const getDir = (
-    dirName: string | string[],
-    filter = (file: string) => file.endsWith(".js")
-) => {
-    const result: Indexable = {};
-    for (const fileName of readDir(dirName, filter)) {
-        const filePath = path.join(...getDirName(dirName), fileName);
-        const fileExports = require(filePath);
-        result[fileName] = fileExports;
-    }
-    return result;
-};
-
-export const getDirAsArr = (
-    dirName: string | string[],
-    filter = (file: string) => file.endsWith(".js")
-) => Object.values(getDir(dirName, filter));
-
-export const getDirName = (dirName: string | string[]): string[] => {
-    dirName = toArr(dirName).filter(Boolean);
-    const parDirName = getParDirName(stack());
-    if (dirName.length < 2) dirName.unshift(parDirName);
-    return dirName;
-};
 
 export const getFunc = <T = any>(
     el: T | ((...args: any[]) => T),
@@ -253,30 +224,6 @@ export const getNonMatchingArrObj = (
         if (!match) result.push(el1);
     });
     return result;
-};
-
-export const getParDirName = (
-    parFileName?: string | CallSite[],
-    fileName: string = __filename
-) => {
-    parFileName = isStr(parFileName)
-        ? parFileName
-        : getParFileName(<CallSite[]>parFileName, fileName);
-    return path.dirname(<string>parFileName ?? fileName);
-};
-
-export const getParFileName = (
-    stack: CallSite[],
-    fileName: string = __filename
-) => {
-    const file = stack?.find?.((site) => {
-        const siteFileName = site.getFileName();
-        const fileNameRegExp = new RegExp(`^node:|${escapeRegExp(fileName)}`);
-        return siteFileName && !fileNameRegExp.test(siteFileName);
-    });
-    const parFileName = file?.getFileName();
-    if (!parFileName) return;
-    return trim(parFileName, "^file:/+");
 };
 
 export const getRandomBool = (): boolean => Boolean(getRandomIntInc(0, 1));
@@ -886,15 +833,6 @@ export const pluralRules = (
     return display.select(num);
 };
 
-export const readDir = (
-    dirName: string | string[],
-    filter = (file: string) => file.endsWith(".js")
-) => {
-    const dirPath = path.join(...getDirName(dirName));
-    const dirFiles = readdirSync(dirPath).filter(filter);
-    return dirFiles;
-};
-
 export const relativeTimeFormat = (
     num: number,
     unit: Intl.RelativeTimeFormatUnit,
@@ -907,18 +845,6 @@ export const relativeTimeFormat = (
 
 export const remove = (str: string, pattern: RegExp) =>
     str?.replace(pattern, "");
-
-export const runDir = (
-    dirName: string | string[],
-    callback: (fileExports: Indexable, fileName: string) => any,
-    filter = (file: string) => file.endsWith(".js")
-) => {
-    for (const fileName of readDir(dirName, filter)) {
-        const filePath = path.join(...getDirName(dirName), fileName);
-        const fileExports = require(filePath);
-        callback(fileExports, fileName);
-    }
-};
 
 export const segmenter = (
     str: string,
