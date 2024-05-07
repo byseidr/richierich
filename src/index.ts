@@ -614,11 +614,11 @@ export const isObjArr = (els: any | any[]): boolean => {
 export const isObjEq = (
     obj1: Indexable,
     obj2: Indexable,
-    keys: string[] = Object.keys({ ...obj1, ...obj2 }),
+    keys: string | string[] = Object.keys({ ...obj1, ...obj2 }),
     strict: boolean = true
 ): boolean => {
     let result = true;
-    keys.forEach((key: Index) => {
+    toArr(keys).forEach((key: Index) => {
         result =
             result &&
             hasKey(obj1, key) &&
