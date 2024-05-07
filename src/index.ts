@@ -279,6 +279,8 @@ export const getParFileName = (
     return trim(parFileName, "^file:/+");
 };
 
+export const getRandomBool = (): boolean => Boolean(getRandomIntInc(0, 1));
+
 export const getRandomEl = (arr: any[]): any => {
     const index = getRandomInt(0, arr.length);
     return getKey(arr, <string>(<any>index));
