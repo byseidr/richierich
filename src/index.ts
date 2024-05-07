@@ -247,6 +247,9 @@ export const getRandomElByChance = (arr: any[]): any => {
     return result;
 };
 
+export const getRandomFalse = (strength = 1): boolean =>
+    !getRandomTrue(strength);
+
 // Function taken from:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 export const getRandomInt = (min: number, max: number): number => {
@@ -261,6 +264,16 @@ export const getRandomIntInc = (min: number, max: number): number => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+};
+
+export const getRandomTrue = (strength = 1): boolean => {
+    let result = getRandomBool();
+
+    for (let i = 1; i < strength; i++) {
+        result = result && getRandomBool();
+    }
+
+    return result;
 };
 
 export const getSize = (el: any): number => {
