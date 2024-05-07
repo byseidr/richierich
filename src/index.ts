@@ -955,7 +955,7 @@ export const simplify = (str: string) =>
         .normalize("NFD")
         .replace(/\p{Diacritic}/gu, "");
 
-export const sleep = (ms: number = 1000): Promise<number> =>
+export const sleep = (ms: number = 1000): Promise<void> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
 export const sort = (arr: any[], key?: any) => {
