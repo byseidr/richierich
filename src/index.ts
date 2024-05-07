@@ -223,6 +223,38 @@ export const getKeyTruthy = (
     defaultVal: any = true
 ): any => (hasKeyTruthy(el, key) ? (<Indexable>el)[<Index>key] : defaultVal);
 
+export const getMatchingArrObj = (
+    arr1: { [key: string]: any },
+    arr2: { [key: string]: any },
+    keys: string | string[]
+) => {
+    let result: { [key: string]: any }[] = [];
+    if (!arr1 || !arr2) return result;
+    arr1.forEach((el1: any) => {
+        arr2.forEach((el2: any) => {
+            if (isObjEq(el1, el2, toArr(keys))) result.push(el1);
+        });
+    });
+    return result;
+};
+
+export const getNonMatchingArrObj = (
+    arr1: { [key: string]: any },
+    arr2: { [key: string]: any },
+    keys: string | string[]
+) => {
+    let result: { [key: string]: any }[] = [];
+    if (isEmpty(arr1) || isEmpty(arr2) || isEmpty(keys)) return result;
+    arr1.forEach((el1: any) => {
+        let match = false;
+        arr2.forEach((el2: any) => {
+            if (isObjEq(el1, el2, toArr(keys))) match = true;
+        });
+        if (!match) result.push(el1);
+    });
+    return result;
+};
+
 export const getParDirName = (
     parFileName?: string | CallSite[],
     fileName: string = __filename
